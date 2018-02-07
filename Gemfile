@@ -13,6 +13,7 @@ gem 'carrierwave'
 # gem 'mini_magick'
 
 gem 'ffaker'
+gem 'bootstrap-sass', '~> 3.3.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'

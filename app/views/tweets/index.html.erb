@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <% if current_user %>
+      Hi, <%= current_user.email %>
+        <%= link_to('登出', destroy_user_session_path, method: :delete) %> |
+        <%= link_to('修改密碼', edit_user_registration_path) %> |
+        <%= link_to('Profile', user_path(current_user)) %>
+      <% else %>
+        <%= link_to('註冊', new_user_registration_path) %> |
+        <%= link_to('登入', new_user_session_path) %>
+    <% end %>
+  </div>
+</div>
+
+<div class="container middle">
+  <div class="row">
+    <div class="col-md-4">
+      <%= image_tag @user.avatar, class: "img-responsive" %>
+    </div>
+    <div class="col-md-8">
+      <h1><%= @user.name %></h1>
+      <strong><%= @user.email %></strong>
+      <br>
+
+      <br><br>     
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="col-sm-9 col-md-8">  
+
+    <% @tweets.each do |tweet| %>
+    <div>
+      <h4><%= tweet.user.email.split("@").first %></h4>
+      <p><%= simple_format tweet.description %></p>
+      <p class="text-muted">
+        <em><%= time_ago_in_words(tweet.created_at) + " ago - "   %> </em>
+      </p>
+    </div>
+    <hr>
+    <% end %>
+
+  </div>  
+
+</div>
+
+
