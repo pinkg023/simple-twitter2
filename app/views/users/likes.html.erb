@@ -1,0 +1,25 @@
+<div class = "container">
+  <div class="col-md-3">
+      <%= image_tag @user.avatar, class: "img-responsive" %>
+      <h1><%= @user.name %></h1>
+      <br>
+      <strong>Role:</strong> <%= @user.role %>
+      <br>
+      <strong>Introduce:</strong> <%= @user.introduction %>     
+      <br><br>
+      <%= link_to 'Tweets ' + @user.tweets.count.to_s, tweets_user_path(@user), class: "text-primary" %><br>
+      <%= @user.followings.count   %> Followings<br>
+      <%= @user.followers.count   %> Followers <br>
+      <%= @user.likes.count   %> Likes  <br>
+      <br>
+      <button type="button" class="btn btn-success"><%= link_to('Edit Profile', edit_user_path(@user)) %></button>
+  </div>
+
+
+  <div class="col-md-9 col-lg-9">
+    <h1><%= Like %></h1>  
+    <% @likes.each do |like| %>
+        <%= render partial: "shared/tweet_template", locals: {tweet: like} %>
+    <% end %> 
+  </div>  
+</div>

@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   has_many :tweets
   has_many :likes, dependent: :destroy            #favorite存在時，刪除user會將favorite一併刪除
+  has_many :likes_tweets, through: :likes, source: :tweet
 
   has_many :followships, dependent: :destroy
   has_many :followings, through: :followships
@@ -22,6 +23,10 @@ class User < ApplicationRecord
 
   def admin?
     self.role == "admin"
+  end
+
+  def following?(user)
+    self.followings.include?(user)
   end
 
 end

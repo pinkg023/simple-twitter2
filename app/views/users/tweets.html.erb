@@ -7,16 +7,31 @@
       <br>
       <strong>Introduce:</strong> <%= @user.introduction %>     
       <br><br>
-      <%= link_to 'Tweets ' + @user.tweets.count.to_s, tweets_user_path(@user), class: "text-primary" %><br>
-      <%= @user.followings.count   %> Followings<br>
-      <%= @user.followers.count   %> Followers <br>
-      <%= @user.likes.count   %> Likes  <br>
-      <br>
-      <button type="button" class="btn btn-success"><%= link_to('Edit Profile', edit_user_path(@user)) %></button>
+
+      <% if @user == current_user %>
+        <%= link_to 'Tweets ' + @user.tweets.count.to_s, tweets_user_path(@user), class: "text-primary" %><br>
+        <%= link_to 'Followiings ' + @user.followings.count.to_s, followings_user_path(@user), class: "text-primary" %><br>
+        <%= link_to 'Followers ' + @user.followers.count.to_s, followers_user_path(@user), class: "text-primary" %><br>
+        <%= link_to 'Likes ' + @user.likes.count.to_s, likes_user_path(@user), class: "text-primary" %><br>
+        <br>
+        <button type="button" class="btn btn-success"><%= link_to('Edit Profile', edit_user_path(@user)) %></button>
+      <% else %>
+        <%= @user.tweets.count   %> Tweets<br>
+        <%= @user.followings.count   %> Followings<br>
+        <%= @user.followers.count   %> Followers <br>
+        <%= @user.likes.count   %> Likes  <br>
+        <br>
+          <% if current_user.following?(@user)%>
+            <%= link_to 'Unfollow', followship_path(@user), method: :delete %>
+          <% else %>
+            <%= link_to 'Follow', followships_path(following_id: @user), method: :post %>
+          <% end %>
+      <% end %>
   </div>
 
 
-  <div class="col-md-9 col-lg-9">  
+  <div class="col-md-9 col-lg-9">
+    <h1><%= Tweet %></h1>  
     <% @tweets.each do |tweet| %>
         <%= render partial: "shared/tweet_template", locals: {tweet: tweet} %>
     <% end %> 
