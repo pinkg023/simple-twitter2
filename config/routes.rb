@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     resources :users, :only => [:index, :show, :edit, :update]  do
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
       member do
-        get :both_followed
+        get :tweets
       end
   end
   # 請依照專案指定規格來設定路由

@@ -6,10 +6,18 @@
   max-height: 180px;
 }
 
+.img-responsive {
+  max-width:  250px;
+}
+
 .colume {
   display: inline-block;
 }
 
 p { 
   word-wrap:break-word; 
+}
+
+.btn a{
+  color: white;
 }

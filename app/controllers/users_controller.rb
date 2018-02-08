@@ -3,14 +3,20 @@ class UsersController < ApplicationController
   before_action :check_userself, :only => [:edit, :update]
 
   def tweets
-    @tweets = Tweets.all
-    @users = user.all
+    @tweets = @user.tweets
   end
 
   def edit
   end
 
   def update
+    if @user.update(user_params)
+      flash[:notice] = "資料已更新！"
+      redirect_to tweets_user_path      
+    else
+      render :edit
+      flash[:alert] = "資料更新失敗！"
+    end
   end
 
   def followings
@@ -32,7 +38,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:email, :intro, :role, :image, :name)
+      params.require(:user).permit(:email, :role, :name, :introduction, :avatar)
     end
 
     def check_userself

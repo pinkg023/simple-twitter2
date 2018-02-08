@@ -6,7 +6,7 @@ class TweetsController < ApplicationController
     @tweets = Tweet.all
     @user = current_user
     @recent_tweets = Tweet.order(created_at: :desc).limit(10)
-    @pop_tweets = Tweet.order(created_at: :desc).limit(10)
+    @pop_tweets = Tweet.order(likes_count: :desc).limit(10)
     @tweet = Tweet.new
     #@users # 基於測試規格，必須講定變數名稱，請用此變數中存放關注人數 Top 10 的使用者資料
   end
@@ -19,15 +19,6 @@ class TweetsController < ApplicationController
     @tweet.likes.create!(user: current_user)
     @tweet.likes_count = @tweet.likes_count + 1
     @tweet.save
-    redirect_back(fallback_location: root_path)  # 導回上一頁
-  end
-
-  def favorite
-    @restaurant = Restaurant.find(params[:id])
-    @restaurant = Restaurant.find(params[:id])
-    @restaurant.favorites.create!(user: current_user)
-    @restaurant.favorites_count = @restaurant.favorites_count + 1
-    @restaurant.save
     redirect_back(fallback_location: root_path)  # 導回上一頁
   end
 
