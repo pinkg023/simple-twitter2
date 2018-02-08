@@ -12,7 +12,8 @@ User.destroy_all
 Reply.destroy_all
 
 # Default admin
-User.create(email: "root@example.com", name: "root", password: "12345678", role: "admin")
+file = File.open("#{Rails.root}/public/avatar/user100.jpg")
+User.create(email: "root@example.com", name: "root", password: "12345678", role: "admin", avatar: file)
 puts "Default admin created!"
 
 Tweet.create( description: "Welcome_tweet", user_id: User.ids.sample )
