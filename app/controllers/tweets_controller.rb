@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
   before_action :authenticate_user!
-  #before_action :set_user, :check_userself, :only => [:index, :edit, :update, ]
+  #before_action :set_tweet, :only => [:create ]
 
   def index
     @tweets = Tweet.all
@@ -12,7 +12,19 @@ class TweetsController < ApplicationController
   end
 
   def create
+    #params.require(:tweet).permit(:description, :user_id)
+    @user = current_user
+    #@tweet = Tweet.new(tweet_params)
+    @tweet = current_user.tweets.build(tweet_params)
+
+    if @tweet.save
+      flash[:notice] = "tweet was successfully created"
+    else
+      flash[:alert] = "tweet was failed to create" + tweet_params.to_s + @tweet.id.to_s + @tweet.to_s
+    end
+    redirect_back(fallback_location: root_path)
   end
+
 
   def like
     @tweet = Tweet.find(params[:id])
@@ -47,6 +59,14 @@ class TweetsController < ApplicationController
       redirect_to restaurants_path
       flash[:alert] = "您無編輯權限！"
       end
+  end
+
+  def set_tweet
+    @tweet = Tweet.find(params[:id])
+  end
+
+  def tweet_params
+    params.require(:tweet).permit(:description, :user_id, :created_at, :updated_at)
   end
 
 end

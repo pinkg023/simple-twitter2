@@ -12,8 +12,8 @@
   <% @recent_tweets.each do |tweet| %>
       <%= render partial: "shared/tweet_template", locals: {tweet: tweet} %>
   <% end %> 
-</div>  
-  
+</div>
+
 <div class="col-md-4 col-lg-4">  
   <h2><%= "Popular" %></h2>
   <% @pop_tweets.each do |tweet| %>

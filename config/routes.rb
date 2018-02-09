@@ -12,10 +12,12 @@ Rails.application.routes.draw do
   end
   # 請依照專案指定規格來設定路由
 
-  resources :tweets, :only => [:index] do
+  resources :tweets, :only => [:index, :create] do
     member do
       post :like
-      post :unlike      
+      post :unlike   
+      #post :create
+      get  :reply   
     end
   end
   root "tweets#index"
