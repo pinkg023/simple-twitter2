@@ -1,5 +1,5 @@
 <div class = "container">
-  <div class="col-md-3">
+  <div class="col-md-4">
       <%= image_tag @user.avatar, class: "img-responsive" %>
       <h1><%= @user.name %></h1>
       <br>
@@ -30,7 +30,7 @@
   </div>
 
 
-  <div class="col-md-9 col-lg-9">
+  <div class="col-md-8 col-lg-8">
     <h1><%= Tweet %></h1>  
     <% @tweets.each do |tweet| %>
         <%= render partial: "shared/tweet_template", locals: {tweet: tweet} %>

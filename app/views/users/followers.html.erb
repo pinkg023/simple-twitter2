@@ -1,5 +1,5 @@
 <div class = "container">
-  <div class="col-md-3">
+  <div class="col-md-4">
       <%= image_tag @user.avatar, class: "img-responsive" %>
       <h1><%= @user.name %></h1>
       <br>
@@ -8,18 +8,34 @@
       <strong>Introduce:</strong> <%= @user.introduction %>     
       <br><br>
       <%= link_to 'Tweets ' + @user.tweets.count.to_s, tweets_user_path(@user), class: "text-primary" %><br>
-      <%= @user.followings.count   %> Followings<br>
-      <%= @user.followers.count   %> Followers <br>
-      <%= @user.likes.count   %> Likes  <br>
+      <%= link_to 'Followiings ' + @user.followings.count.to_s, followings_user_path(@user), class: "text-primary" %><br>
+      <%= link_to 'Followers ' + @user.followers.count.to_s, followers_user_path(@user), class: "text-primary" %><br>
+      <%= link_to 'Likes ' + @user.likes.count.to_s, likes_user_path(@user), class: "text-primary" %><br>
       <br>
-      <button type="button" class="btn btn-success"><%= link_to('Edit Profile', edit_user_path(@user)) %></button>
+      <button type="button" class="btn btn-success"><%= link_to('Edit Profile', edit_user_path(@user)) %></button>  
   </div>
 
 
-  <div class="col-md-9 col-lg-9">
-    <h1><%= Tweets %></h1>  
-    <% @tweets.each do |tweet| %>
-        <%= render partial: "shared/tweet_template", locals: {tweet: tweet} %>
-    <% end %> 
-  </div>  
+
+  <div>
+    <h1> Follower </h1>
+    <table class="table table-striped">    
+          <tbody>
+          <% @followers.each do |user| %>
+            <div class="col-sm-6 col-md-4">
+              <div class="user-item">                                
+                <%= image_tag user.avatar, class: "img-responsive" %>
+                <p><%= user.name %></p>
+                <%= simple_format user.introduction %></li>
+                <br>                
+              </div>
+            </div>
+          <% end %>
+          </tbody>
+    </table>
+
+    <hr class="style13">
+    <div class="p-3 mb-2 bg-info text-white"><%= flash[:notice] %></div>
+    <div class="p-3 mb-2 bg-danger text-white"><%= flash[:alert] %></div>
+  </div>
 </div>
