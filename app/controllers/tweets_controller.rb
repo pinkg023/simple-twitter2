@@ -20,7 +20,7 @@ class TweetsController < ApplicationController
     if @tweet.save
       flash[:notice] = "tweet was successfully created"
     else
-      flash[:alert] = "tweet was failed to create" + tweet_params.to_s + @tweet.id.to_s + @tweet.to_s
+      flash[:alert] = "tweet was failed to create"
     end
     redirect_back(fallback_location: root_path)
   end
@@ -37,7 +37,7 @@ class TweetsController < ApplicationController
 
   def unlike
     @tweet = Tweet.find(params[:id])
-    likes = Like.where(user: current_user)
+    likes = Like.where(user: current_user, tweet_id:params[:id])
     likes.destroy_all
     @tweet.likes_count = @tweet.likes_count - 1
     @tweet.save

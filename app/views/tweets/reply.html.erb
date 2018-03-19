@@ -18,15 +18,15 @@
 
 
   <div>
-    <h1> Following </h1>
+    <h1> Reply </h1>
     <table class="table table-striped">
           <tbody>
-          <% @followings.each do |user| %>
+          <% @Replies.each do |reply| %>
             <div class="col-sm-6 col-md-4">
               <div class="user-item">                                
-                <%= image_tag user.avatar, class: "img-responsive" %>
-                <p><%= user.name %></p>
-                <%= simple_format user.introduction %></li>
+                <%= image_tag reply.user.avatar, class: "img-responsive" %>
+                <p><%= reply.user.name %></p>
+                <%= simple_format reply.comment %></li>
                 <br>                
               </div>
             </div>
